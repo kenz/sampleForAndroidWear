@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="org.firespeed.myapplication"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-feature android:name="android.hardware.type.watch"/>
+
+    <!-- Required to act as a custom watch face. -->
+    <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.DeviceDefault">
+        <service
+            android:name=".MyWatchFace"
+            android:label="@string/my_analog_name"
+            android:allowEmbedded="true"
+            android:taskAffinity=""
+            android:permission="android.permission.BIND_WALLPAPER">
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/watch_face"/>
+            <!-- 四角い時計のプレビュー -->
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview"
+                android:resource="@drawable/preview_analog"/>
+            <!-- 丸い時計のプレビュー -->
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview_circular"
+                android:resource="@drawable/preview_analog"/>
+            <meta-data
+                android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
+                android:value="org.firespeed.myapplication.CONFIG" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.companionConfigurationAction"
+                android:value="org.firespeed.myapplication.CONFIG" />
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService"/>
+
+                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE"/>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".ConfigActivity"
+            android:label="@string/title_activity_config">
+            <intent-filter>
+                <action android:name= "org.firespeed.myapplication.CONFIG" />
+                <category android:name= "com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
+    </application>
+
+</manifest>
